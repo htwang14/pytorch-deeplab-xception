@@ -14,6 +14,8 @@ from utils.saver import Saver
 from utils.summaries import TensorboardSummary
 from utils.metrics import Evaluator
 
+torch.backends.cudnn.benchmark = True
+
 class Trainer(object):
     def __init__(self, args):
         self.args = args
