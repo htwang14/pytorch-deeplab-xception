@@ -176,6 +176,8 @@ class Trainer(object):
                 'optimizer': self.optimizer.state_dict(),
                 'best_pred': self.best_pred,
             }, is_best)
+        # always save ckpt at this epoch:
+        torch.save(self.model.state_dict(), os.path.join(self.saver.experiment_dir, 'ckpt%d.pth' % epoch))
 
 def main():
     parser = argparse.ArgumentParser(description="PyTorch DeeplabV3Plus Training")
