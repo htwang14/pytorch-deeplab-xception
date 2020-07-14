@@ -75,6 +75,13 @@ Follow steps below to train your model:
     bash train_coco.sh
     ```    
 
+**Note**
+The command provided in `train_voc.sh` only achieves `~75%` mIoU.
+`CUDA_VISIBLE_DEVICES=4,5,6,7  python train.py  --lr-scheduler step --backbone resnet --batch-size 16 --gpu-ids 0,1,2,3 --eval-interval 5 --epochs 40`. 
+This achieves `0.7796` mIoU. Following [this issue](https://github.com/jfzhang95/pytorch-deeplab-xception/issues/172#issue-626715399).
+`python train.py --backbone resnet --lr 0.0035 --workers 12 --epochs 50 --batch-size 8 --gpu-ids 0 --checkname deeplab-resnet --eval-interval 1 --datasetpascal --eval-interval 5`.
+This achieves `0.7910` mIoU. Following [this issue](https://github.com/jfzhang95/pytorch-deeplab-xception/issues/84#issuecomment-496865090).
+
 ### Acknowledgement
 [PyTorch-Encoding](https://github.com/zhanghang1989/PyTorch-Encoding)
 
