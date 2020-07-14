@@ -32,9 +32,9 @@ class LR_Scheduler(object):
         self.mode = mode
         print('Using {} LR Scheduler!'.format(self.mode))
         self.lr = base_lr
-        if mode == 'step':
-            assert lr_step
-        self.lr_step = lr_step
+        # if mode == 'step':
+        #     assert lr_step
+        # self.lr_step = lr_step
         self.iters_per_epoch = iters_per_epoch
         self.N = num_epochs * iters_per_epoch
         self.epoch = -1
@@ -47,7 +47,15 @@ class LR_Scheduler(object):
         elif self.mode == 'poly':
             lr = self.lr * pow((1 - 1.0 * T / self.N), 0.9)
         elif self.mode == 'step':
-            lr = self.lr * (0.1 ** (epoch // self.lr_step))
+            # change step scheduler according to
+            # https://github.com/jfzhang95/pytorch-deeplab-xception/issues/84#issuecomment-496865090
+            # lr = self.lr * (0.1 ** (epoch // self.lr_step))
+            if epoch<10:
+                lr = 0.007
+            if epoch >= 10 and epoch <=20:
+                lr = 0.0007
+            if epoch >= 21 and epoch <=40:
+                lr = 0.00007
         else:
             raise NotImplemented
         # warm up lr schedule
